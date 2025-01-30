@@ -211,7 +211,6 @@ class Graph<E> {
 
 public class zad8 {
     public static void main(String[] args) {
-        // Прв пример
         Integer[] nodes1 = {1, 2, 3, 4, 5};
         Graph<Integer> graph1 = new Graph<>(5, nodes1);
         graph1.addEdge(0, 1);
@@ -221,7 +220,6 @@ public class zad8 {
         
         System.out.println("Broj na kriticni vrski: " + graph1.countCriticalEdges());
         
-        // Втор пример
         String[] nodes2 = {"A", "B", "C", "D", "E"};
         Graph<String> graph2 = new Graph<>(5, nodes2);
         graph2.addEdge(0, 1);
