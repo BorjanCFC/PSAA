@@ -1,0 +1,63 @@
+; multi-segment executable file template.
+data segment
+    pkey db "press any key...$" 
+    
+    ;-------------------------------
+    
+    lookupTable DW 0492h, 0861h, 030Ch, 024Ch, 0261h, 0309h, 0849h, 0249h
+    
+    array DB 60  
+    
+    index DW 0 
+    
+    ;-------------------------------
+    
+ends   
+
+stack segment
+    dw   128  dup(0)
+ends  
+
+code segment
+start:
+
+    mov ax, data
+    mov ds, ax
+    mov es, ax
+                             
+;------------------------------- 
+    
+    mov dx, 112
+    mov ax, [lookupTable]
+    mov dx, 4
+    out dx, ax
+    
+loopCycle:
+
+    mov dx, 112
+    in al, dx
+    
+    mov [array], al
+    inc [index]
+      
+    mov bl, al
+    shl bx, 1
+    mov ax, [lookupTable + bx]
+    
+    mov dx, 4
+    out dx, ax
+    
+    jmp loopCycle    
+    
+;-------------------------------      
+    lea dx, pkey
+    mov ah, 9
+    int 21h
+    
+    mov ah, 1
+    int 21h
+    
+    mov ax, 4c00h
+    int 21h    
+ends
+end start
